@@ -7,7 +7,7 @@ import FlashcardList from "./components/FlashcardList";
 function App() {
   const [flashcards, setFlashcards] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [title, setTitle] = useState("General Knowledge");
+  const [title, setTitle] = useState("");
 
   const categoryEl = useRef();
   const amountEl = useRef();
@@ -46,11 +46,8 @@ function App() {
             };
           })
         );
+        setTitle(categoryEl.current.selectedOptions[0].innerText);
       });
-  }
-
-  function getTitle(e) {
-    setTitle(e.target.options[e.target.selectedIndex].text);
   }
 
   return (
@@ -58,7 +55,7 @@ function App() {
       <form className="header" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="category">Category</label>
-          <select id="category" ref={categoryEl} onChange={getTitle}>
+          <select id="category" ref={categoryEl}>
             {categories.map((category) => {
               return (
                 <option value={category.id} key={category.id}>
